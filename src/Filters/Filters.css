@@ -1,0 +1,13 @@
+.button {
+  background: #4842b7;
+}
+
+@media (max-width: 768px) {
+  .filter-container {
+    display: unset;
+  }
+
+  .filter-container > div {
+    margin-bottom: 10px;
+  }
+}
