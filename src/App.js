@@ -126,9 +126,6 @@ const App = () => {
             selectedHeight={selectedHeight}
             selectedWeakness={selectedWeakness}
             onFilterChange={filterChangeHandler}
-            // onSearchTextChange={searchTextChangeHandler}
-            // onWeaknessSelect={weaknessSelectHandler}
-            // onHeightSelect={heightSelectHandler}
             onClearAllClick={clearAllHandler}
           />
           <Pokemon matchedPokemon={matchedPokemon} />
