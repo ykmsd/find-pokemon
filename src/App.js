@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Filters from './Filters/Filters';
 import Pokemon from './Pokemon/Pokemon';
+import Loading from './Loading/Loading';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -45,7 +46,6 @@ const App = () => {
       .map(item => item[key])
       .flat()
       .sort();
-
     const uniqueValues = [...new Set(values)];
     return [
       { label: 'All', value: '' },
@@ -82,16 +82,29 @@ const App = () => {
     }
   }, [searchText, selectedWeakness, selectedHeight]);
 
-  const searchTextChangeHandler = ({ target: { value } }) => {
+  const searchTextChangeHandler = value => {
     setSearchText(value.toLowerCase());
   };
 
-  const weaknessSelectHandler = ({ target: { value } }) => {
+  const weaknessSelectHandler = value => {
     setSelectedWeakness(value);
   };
 
-  const heightSelectHandler = ({ target: { value } }) => {
+  const heightSelectHandler = value => {
     setSelectedHeight(value);
+  };
+
+  const filterChangeHandler = (type, { target: { value } }) => {
+    switch (type) {
+      case 'searchText':
+        return searchTextChangeHandler(value);
+      case 'weakness':
+        return weaknessSelectHandler(value);
+      case 'hegiht':
+        return heightSelectHandler(value);
+      default:
+        return;
+    }
   };
 
   const clearAllHandler = () => {
@@ -103,17 +116,24 @@ const App = () => {
   const content = (
     <div className="container">
       <h1 className="f1 lh-title tc mb4">Find your Pokémon 🔎</h1>
-      <Filters
-        weaknessOptions={weaknessOptions}
-        heightOptions={heightOptions}
-        selectedHeight={selectedHeight}
-        selectedWeakness={selectedWeakness}
-        onSearchTextChange={searchTextChangeHandler}
-        onWeaknessSelect={weaknessSelectHandler}
-        onHeightSelect={heightSelectHandler}
-        onClearAllClick={clearAllHandler}
-      />
-      <Pokemon matchedPokemon={matchedPokemon} />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <React.Fragment>
+          <Filters
+            weaknessOptions={weaknessOptions}
+            heightOptions={heightOptions}
+            selectedHeight={selectedHeight}
+            selectedWeakness={selectedWeakness}
+            onFilterChange={filterChangeHandler}
+            // onSearchTextChange={searchTextChangeHandler}
+            // onWeaknessSelect={weaknessSelectHandler}
+            // onHeightSelect={heightSelectHandler}
+            onClearAllClick={clearAllHandler}
+          />
+          <Pokemon matchedPokemon={matchedPokemon} />
+        </React.Fragment>
+      )}
     </div>
   );
   return content;

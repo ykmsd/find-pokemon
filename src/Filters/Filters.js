@@ -17,14 +17,15 @@ const Filters = props => {
       inputType: 'text',
       label: 'Search by type or name',
       name: 'text-search',
-      onChange: $event => props.onSearchTextChange($event),
-      value: props.searchText
+      onChange: $event => props.onFilterChange('searchText', $event),
+      value: props.searchText,
+      placeholder: 'e.g. Pikachu'
     },
     {
       inputType: 'select',
       label: 'Weakness',
       name: 'weakness',
-      onChange: $event => props.onWeaknessSelect($event),
+      onChange: $event => props.onFilterChange('weakness', $event),
       value: props.selectedWeakness,
       options: weaknessOptions
     },
@@ -32,7 +33,7 @@ const Filters = props => {
       inputType: 'select',
       label: 'Height',
       name: 'height',
-      onChange: $event => props.onHeightSelect($event),
+      onChange: $event => props.onFilterChange('hegiht', $event),
       value: props.selectedHeight,
       options: heightOptions
     }
@@ -47,6 +48,7 @@ const Filters = props => {
         type={setting.type}
         name={setting.name}
         onChange={setting.onChange}
+        placeholder={setting.placeholder}
       />
     </div>
   );

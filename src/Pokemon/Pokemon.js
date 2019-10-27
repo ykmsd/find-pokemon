@@ -40,7 +40,7 @@ const Pokemon = props => {
             <h2 className="f3 mb2">{pokemon.name}</h2>
             <ul>
               {detailSettings.map(setting => (
-                <li key={setting.name}>
+                <li key={setting.key}>
                   {setting.label}: {` `}
                   {setting.dataType === 'array'
                     ? getArrayValueHTML(pokemon[setting.key])
