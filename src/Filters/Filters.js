@@ -1,14 +1,8 @@
 import React from 'react';
 import './Filters.css';
+import { getOptionsHTML } from './Filters.helpers';
 
 const Filters = props => {
-  const getOptionsHTML = options => {
-    return options.map(option => (
-      <option value={option.value} key={option.label}>
-        {option.label}
-      </option>
-    ));
-  };
   const heightOptions = getOptionsHTML(props.heightOptions);
   const weaknessOptions = getOptionsHTML(props.weaknessOptions);
 
